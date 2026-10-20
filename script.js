@@ -34,12 +34,13 @@ function resetTilt() {
 }
 
 if (!reduceMotion) {
-  card.addEventListener("pointermove", tilt);
-  card.addEventListener("pointerleave", resetTilt);
-  card.addEventListener("pointerup", (event) => {
-    // Touch has no hover, so settle the card after a tap
-    if (event.pointerType === "touch") resetTilt();
+  card.addEventListener("pointermove", (event) => {
+    // Only tilt for a mouse or pen. On phones, a finger dragging over the
+    // card is usually scrolling the page, and tilting then looks broken.
+    if (event.pointerType !== "touch") tilt(event);
   });
+  card.addEventListener("pointerleave", resetTilt);
+  card.addEventListener("pointercancel", resetTilt);
 }
 
 // ---------------------------------------------------------------

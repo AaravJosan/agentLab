@@ -19,6 +19,10 @@
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh; /* phones: the visible height, not counting the address bar */
+  /* A tilted card pokes past the screen edge; don't let the page scroll sideways */
+  overflow-x: hidden;
+  overflow-x: clip;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--ink);
   background:
@@ -29,6 +33,7 @@ body {
 
 .stage {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,11 +45,14 @@ body {
 /* Card shell: classic 5:7 trading card ratio, shrinks to fit the screen */
 .card {
   width: min(360px, 100%, calc((100vh - 170px) * 5 / 7));
+  width: min(360px, 100%, calc((100dvh - 170px) * 5 / 7));
   aspect-ratio: 5 / 7;
   cursor: pointer;
   border-radius: var(--radius);
   outline: none;
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  /* Pass the page's perspective down so the flip looks 3D, not squashed */
+  transform-style: preserve-3d;
   transition: transform 0.15s ease-out;
   -webkit-tap-highlight-color: transparent;
 }
@@ -58,7 +66,9 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  /* ease-in-out is symmetric, so at 0.35s (half the time) the card is at
+     exactly 90° (edge-on), which is when .face swaps sides below */
+  transition: transform 0.7s ease-in-out;
 }
 
 .card.flipped .card-inner {
@@ -458,6 +468,33 @@ body {
 @keyframes pop {
   from { transform: scale(0.2); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+/* Small phones: tighten the card so the text isn't cramped */
+@media (max-width: 400px) {
+  .front {
+    border-width: 6px;
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .meta,
+  .ability-text {
+    font-size: 0.72rem;
+  }
+
+  .ability {
+    padding: 6px 10px;
+  }
+
+  .stats {
+    padding: 6px 10px;
+    gap: 3px;
+  }
+
+  .arena {
+    padding: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
