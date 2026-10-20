@@ -69,11 +69,9 @@ body {
   position: absolute;
   inset: 0;
   border-radius: var(--radius);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   overflow: hidden;
-  /* Swap sides at the halfway point of the 0.7s flip. backface-visibility
-     alone is unreliable here because the sheen's blend mode can flatten 3D. */
+  /* Swap sides at the halfway point of the 0.7s flip instead of using
+     backface-visibility, which hides the wrong side if 3D gets flattened. */
   transition: visibility 0s linear 0.35s;
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.2),
@@ -98,10 +96,9 @@ body {
   pointer-events: none;
   background: radial-gradient(
     circle at var(--mx, 50%) var(--my, 30%),
-    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.3),
     rgba(255, 255, 255, 0) 55%
   );
-  mix-blend-mode: overlay;
 }
 
 .card-top {
