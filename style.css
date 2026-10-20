@@ -1,0 +1,312 @@
+:root {
+  --bg-1: #1e1b4b;
+  --bg-2: #4c1d95;
+  --gold: #facc15;
+  --gold-dark: #b45309;
+  --card-1: #f97316;
+  --card-2: #ec4899;
+  --card-3: #8b5cf6;
+  --panel: #fffbeb;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(236, 72, 153, 0.35), transparent 45%),
+    radial-gradient(circle at 80% 85%, rgba(250, 204, 21, 0.25), transparent 45%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-2));
+}
+
+.stage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  perspective: 1200px;
+}
+
+/* Card shell: classic 5:7 trading card ratio, shrinks to fit the screen */
+.card {
+  width: min(360px, 100%, calc((100vh - 100px) * 5 / 7));
+  aspect-ratio: 5 / 7;
+  cursor: pointer;
+  border-radius: var(--radius);
+  outline: none;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.15s ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card:focus-visible {
+  box-shadow: 0 0 0 4px var(--gold);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Front */
+.front {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 8px solid var(--gold);
+  background: linear-gradient(150deg, var(--card-1), var(--card-2) 55%, var(--card-3));
+}
+
+/* Holographic sheen that follows the pointer */
+.front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 30%),
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0) 55%
+  );
+  mix-blend-mode: overlay;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(1.15rem, 5.5vw, 1.5rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.hp {
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.hp small {
+  font-size: 0.65rem;
+}
+
+.art {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 12px;
+  border: 4px solid var(--gold);
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.9), transparent 60%),
+    linear-gradient(135deg, #38bdf8, #a78bfa);
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.initials {
+  font-size: clamp(3rem, 18vw, 4.5rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    0 4px 0 var(--card-3),
+    0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.type-badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.meta {
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.ability {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+
+.ability-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ability-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--card-2);
+}
+
+.ability-cost {
+  font-size: 0.8rem;
+}
+
+.ability-name {
+  margin: 2px 0;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.ability-text {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.stats {
+  list-style: none;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  display: grid;
+  gap: 5px;
+}
+
+.stats li {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.stats b {
+  height: 7px;
+  border-radius: 999px;
+  background: #e7e5e4;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats b::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--v);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--card-1), var(--card-2));
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 0.68rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.number {
+  font-style: normal;
+  font-weight: 800;
+}
+
+/* Back */
+.back {
+  transform: rotateY(180deg);
+  border: 8px solid var(--gold);
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.06) 0 12px, transparent 12px 24px),
+    linear-gradient(160deg, var(--card-3), var(--bg-1));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.back-ring {
+  width: 58%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 6px solid var(--gold);
+  background: radial-gradient(circle, var(--card-2), var(--card-1));
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.5);
+}
+
+.back-logo {
+  font-size: clamp(2.5rem, 14vw, 3.5rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 4px 0 var(--gold-dark);
+}
+
+.back-text {
+  margin: 0;
+  color: var(--gold);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.hint {
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card-inner {
+    transition: none;
+  }
+}

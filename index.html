@@ -3,171 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name — Portfolio</title>
-  <meta name="description" content="Personal portfolio: projects, skills and contact." />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Your Name — Trading Card</title>
+  <meta name="description" content="A digital trading card about me." />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="#top" class="logo">YN<span>.</span></a>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li>
-          <button class="theme-toggle" aria-label="Toggle dark mode">
-            <span class="icon-sun">☀</span><span class="icon-moon">☾</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <main class="stage">
+    <div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Trading card. Tap to flip.">
+      <div class="card-inner">
 
-  <main id="top">
-    <section class="hero container">
-      <p class="eyebrow">Hello, I'm</p>
-      <h1>Your Name</h1>
-      <p class="tagline">
-        Computer engineering student building
-        <span class="typed" data-words="web apps,clean interfaces,useful tools,things that work"></span><span class="cursor">|</span>
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">See my work</a>
-        <a href="#contact" class="btn btn-ghost">Get in touch</a>
-      </div>
-    </section>
+        <!-- Front -->
+        <section class="face front">
+          <header class="card-top">
+            <h1 class="name">Your Name</h1>
+            <span class="hp"><small>HP</small> 120</span>
+          </header>
 
-    <section id="about" class="section container reveal">
-      <h2 class="section-title">About me</h2>
-      <div class="about-grid">
-        <div class="avatar" aria-hidden="true">YN</div>
-        <div>
-          <p>
-            I'm a fourth-year student who enjoys turning ideas into fast, accessible
-            websites and applications. I like working across the stack, from database
-            design to the last pixel of a button's hover state.
-          </p>
-          <p>
-            When I'm not coding, you'll find me hiking, reading, or tinkering with
-            side projects. Replace this text with your own story.
-          </p>
-          <ul class="facts">
-            <li><strong>4</strong><span>Years studying</span></li>
-            <li><strong>12+</strong><span>Projects built</span></li>
-            <li><strong>∞</strong><span>Cups of coffee</span></li>
+          <div class="art">
+            <span class="initials">YN</span>
+            <span class="type-badge">⚡ Engineer</span>
+          </div>
+
+          <p class="meta">Major: <strong>Your Major</strong> · Class of 20XX</p>
+
+          <div class="ability">
+            <div class="ability-head">
+              <span class="ability-label">Special Ability</span>
+              <span class="ability-cost">⚡⚡</span>
+            </div>
+            <h2 class="ability-name">Midnight Debugger</h2>
+            <p class="ability-text">
+              Once per night, fix any bug in under 5 minutes, but only after
+              staring at it for 3 hours.
+            </p>
+          </div>
+
+          <ul class="stats">
+            <li><span>Coffee</span><b style="--v: 95%"></b></li>
+            <li><span>Creativity</span><b style="--v: 80%"></b></li>
+            <li><span>Teamwork</span><b style="--v: 85%"></b></li>
           </ul>
-        </div>
-      </div>
-    </section>
 
-    <section id="projects" class="section container reveal">
-      <h2 class="section-title">Projects</h2>
-      <div class="filters" role="group" aria-label="Filter projects">
-        <button class="filter active" data-filter="all">All</button>
-        <button class="filter" data-filter="web">Web</button>
-        <button class="filter" data-filter="data">Data</button>
-        <button class="filter" data-filter="tools">Tools</button>
-      </div>
-      <div class="project-grid">
-        <article class="card" data-category="web">
-          <div class="card-art art-1"></div>
-          <div class="card-body">
-            <h3>Campus Events</h3>
-            <p>A responsive site for discovering and RSVPing to student events.</p>
-            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-          </div>
-        </article>
-        <article class="card" data-category="data">
-          <div class="card-art art-2"></div>
-          <div class="card-body">
-            <h3>Library Search</h3>
-            <p>Full-text search over a book catalog with ranked results.</p>
-            <ul class="tags"><li>Python</li><li>SQL</li></ul>
-          </div>
-        </article>
-        <article class="card" data-category="tools">
-          <div class="card-art art-3"></div>
-          <div class="card-body">
-            <h3>Task CLI</h3>
-            <p>A tiny command-line to-do manager with tags and due dates.</p>
-            <ul class="tags"><li>Node.js</li></ul>
-          </div>
-        </article>
-        <article class="card" data-category="web">
-          <div class="card-art art-4"></div>
-          <div class="card-body">
-            <h3>Weather Dashboard</h3>
-            <p>Seven-day forecasts with charts, pulled from a public API.</p>
-            <ul class="tags"><li>JavaScript</li><li>REST</li></ul>
-          </div>
-        </article>
-        <article class="card" data-category="data">
-          <div class="card-art art-5"></div>
-          <div class="card-body">
-            <h3>Spending Insights</h3>
-            <p>Visualizes personal budget data to spot monthly trends.</p>
-            <ul class="tags"><li>Python</li><li>Pandas</li></ul>
-          </div>
-        </article>
-        <article class="card" data-category="tools">
-          <div class="card-art art-6"></div>
-          <div class="card-body">
-            <h3>Markdown Previewer</h3>
-            <p>Live side-by-side Markdown editing in the browser.</p>
-            <ul class="tags"><li>JavaScript</li></ul>
-          </div>
-        </article>
-      </div>
-    </section>
+          <footer class="card-bottom">
+            <span>Weakness: 8 a.m. classes</span>
+            <span class="number">#001 ★</span>
+          </footer>
+        </section>
 
-    <section id="skills" class="section container reveal">
-      <h2 class="section-title">Skills</h2>
-      <div class="skills">
-        <div class="skill"><span>HTML &amp; CSS</span><div class="bar"><i style="--level: 90%"></i></div></div>
-        <div class="skill"><span>JavaScript</span><div class="bar"><i style="--level: 80%"></i></div></div>
-        <div class="skill"><span>Python</span><div class="bar"><i style="--level: 75%"></i></div></div>
-        <div class="skill"><span>SQL</span><div class="bar"><i style="--level: 70%"></i></div></div>
-        <div class="skill"><span>Git</span><div class="bar"><i style="--level: 85%"></i></div></div>
-        <div class="skill"><span>C / C++</span><div class="bar"><i style="--level: 65%"></i></div></div>
+        <!-- Back -->
+        <section class="face back" aria-hidden="true">
+          <div class="back-ring">
+            <span class="back-logo">YN</span>
+          </div>
+          <p class="back-text">Collector's Edition</p>
+        </section>
+
       </div>
-    </section>
-
-    <section id="contact" class="section container reveal">
-      <h2 class="section-title">Contact</h2>
-      <p class="lead">Have a question or an opportunity? Send a message.</p>
-      <form class="contact-form" novalidate>
-        <div class="field">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" required />
-          <small class="error"></small>
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" required />
-          <small class="error"></small>
-        </div>
-        <div class="field full">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-          <small class="error"></small>
-        </div>
-        <button type="submit" class="btn btn-primary">Send message</button>
-        <p class="form-status" role="status"></p>
-      </form>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Your Name. Built with HTML, CSS &amp; JavaScript.</p>
-      <a href="#top" class="back-to-top">Back to top ↑</a>
     </div>
-  </footer>
+    <p class="hint">Tap the card to flip it</p>
+  </main>
 
   <script src="script.js"></script>
 </body>
