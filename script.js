@@ -66,6 +66,16 @@ const opponents = [
   { name: "Merge Conflict Monster", power: 60 },
   { name: "8 a.m. Lecture", power: 55 },
   { name: "Infinite Loop", power: 65 },
+  { name: "Segfault", power: 75 },
+  { name: "Null Pointer", power: 68 },
+  { name: "Off-by-One Error", power: 50 },
+  { name: "Group Project Ghost", power: 45 },
+  { name: "Printer Out of Toner", power: 40 },
+  { name: "Wi-Fi Dead Zone", power: 58 },
+  { name: "Midterm Curve", power: 80 },
+  { name: "Mystery Dining Hall Meal", power: 52 },
+  { name: "Parking Ticket", power: 62 },
+  { name: "Unsaved Homework", power: 85 },
 ];
 
 const ROLL_TIME = 1200; // how long the dice spin, in milliseconds
@@ -88,13 +98,23 @@ function getMyPower() {
 // Use the first word of the name on the card, e.g. "Aarav"
 const firstName = document.querySelector(".name").textContent.split(" ")[0];
 
+// true while the dice are spinning, so extra clicks are ignored
+let isRolling = false;
+
 battleButton.addEventListener("click", () => {
+  // Already rolling? Do nothing until this battle finishes
+  if (isRolling) return;
+  isRolling = true;
+
   // Pick a random opponent from the list
   const opponent = opponents[Math.floor(Math.random() * opponents.length)];
   const myPower = getMyPower();
 
-  // Set up the arena and start the dice spinning
+  // Lock the button and show that it's busy
   battleButton.disabled = true;
+  battleButton.textContent = "🎲 Rolling…";
+
+  // Set up the arena and start the dice spinning
   arena.hidden = false;
   arena.classList.add("rolling");
   playerName.textContent = firstName;
@@ -139,6 +159,8 @@ battleButton.addEventListener("click", () => {
     void winnerText.offsetWidth;
     winnerText.classList.add("show");
 
+    // Unlock the button for the next battle
+    isRolling = false;
     battleButton.disabled = false;
     battleButton.textContent = "⚔️ Battle again!";
   }, ROLL_TIME);

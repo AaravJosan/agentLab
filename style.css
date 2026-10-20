@@ -344,15 +344,18 @@ body {
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
-/* Pressed-down look */
-.battle-btn:active {
+/* Pressed-down look (only when the button can actually be clicked) */
+.battle-btn:active:not(:disabled) {
   transform: translateY(4px);
   box-shadow: 0 1px 0 var(--gold-dark), 0 4px 10px rgba(0, 0, 0, 0.35);
 }
 
+/* Locked while rolling: faded, flat, and ignores the mouse/finger */
 .battle-btn:disabled {
   opacity: 0.6;
-  cursor: wait;
+  pointer-events: none;
+  box-shadow: 0 2px 0 var(--gold-dark);
+  transform: translateY(3px);
 }
 
 .battle-btn:focus-visible {
