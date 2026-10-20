@@ -64,6 +64,31 @@
       </div>
     </div>
     <p class="hint">Tap the card to flip it</p>
+
+    <section class="battle">
+      <button class="battle-btn" type="button">⚔️ Battle!</button>
+
+      <!-- Hidden until the first battle starts -->
+      <div class="arena" hidden>
+        <div class="fighter">
+          <span class="fighter-name" id="player-name">You</span>
+          <span class="die">🎲</span>
+          <span class="roll" id="player-roll">0</span>
+          <span class="detail" id="player-detail"></span>
+        </div>
+
+        <span class="vs">VS</span>
+
+        <div class="fighter">
+          <span class="fighter-name" id="opponent-name">???</span>
+          <span class="die">🎲</span>
+          <span class="roll" id="opponent-roll">0</span>
+          <span class="detail" id="opponent-detail"></span>
+        </div>
+
+        <p class="winner" id="winner" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 
   <script src="script.js"></script>

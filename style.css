@@ -39,7 +39,7 @@ body {
 
 /* Card shell: classic 5:7 trading card ratio, shrinks to fit the screen */
 .card {
-  width: min(360px, 100%, calc((100vh - 100px) * 5 / 7));
+  width: min(360px, 100%, calc((100vh - 170px) * 5 / 7));
   aspect-ratio: 5 / 7;
   cursor: pointer;
   border-radius: var(--radius);
@@ -319,10 +319,154 @@ body {
   font-size: 0.85rem;
 }
 
+/* Battle */
+.battle {
+  width: min(360px, 100%);
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.battle-btn {
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  padding: 12px 36px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--gold), #f59e0b);
+  box-shadow: 0 5px 0 var(--gold-dark), 0 10px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Pressed-down look */
+.battle-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--gold-dark), 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.battle-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.battle-btn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.arena {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* display: grid above would otherwise override the hidden attribute */
+.arena[hidden] {
+  display: none;
+}
+
+.fighter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.fighter-name {
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.die {
+  font-size: 2rem;
+  display: inline-block;
+}
+
+.roll {
+  font-size: 2rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--card-3);
+}
+
+.detail {
+  font-size: 0.72rem;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+
+.vs {
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--card-2);
+}
+
+/* While rolling, the dice spin and the numbers wobble */
+.arena.rolling .die {
+  animation: spin 0.35s linear infinite;
+}
+
+.arena.rolling .roll {
+  animation: wobble 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes wobble {
+  from { transform: translateY(-2px) rotate(-4deg); }
+  to { transform: translateY(2px) rotate(4deg); }
+}
+
+.winner {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: clamp(1.8rem, 9vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--card-1);
+  text-shadow: 0 3px 0 var(--gold);
+}
+
+.winner.lose {
+  color: var(--card-3);
+}
+
+/* "show" is added after each battle to make the winner text pop in */
+.winner.show {
+  animation: pop 0.5s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+@keyframes pop {
+  from { transform: scale(0.2); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card,
   .card-inner,
   .face {
     transition: none;
+  }
+
+  .arena.rolling .die,
+  .arena.rolling .roll,
+  .winner.show {
+    animation: none;
   }
 }
