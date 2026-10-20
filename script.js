@@ -8,8 +8,14 @@ function flip() {
   card.setAttribute("aria-pressed", flipped);
 }
 
-card.addEventListener("click", flip);
+card.addEventListener("click", (event) => {
+  // Clicking the GitHub link should open it, not flip the card
+  if (event.target.closest("a")) return;
+  flip();
+});
 card.addEventListener("keydown", (event) => {
+  // Only flip when the card itself has focus, not the link inside it
+  if (event.target !== card) return;
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
     flip();

@@ -277,6 +277,8 @@ body {
 .card-bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   color: #fff;
   font-size: 0.68rem;
   font-style: italic;
@@ -286,6 +288,19 @@ body {
 .number {
   font-style: normal;
   font-weight: 800;
+  white-space: nowrap;
+}
+
+.repo-link {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-right: 4px;
+}
+
+.repo-link:hover,
+.repo-link:focus-visible {
+  color: #fff;
 }
 
 /* Back */
